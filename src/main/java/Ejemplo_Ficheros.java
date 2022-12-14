@@ -84,6 +84,11 @@ public class Ejemplo_Ficheros{
 				// Lanza NumberFormatException
 				leer_int = Integer.parseInt (leer3);
 
+				// Llamamos a la función comprobarPositivo:
+
+				System.out.println ("Comprobamos si el número es positivo: " +
+								comprobarPositivo(leer_double));
+
 				// Mostramos por la consola
 				// las diversas cadenas:
 
@@ -117,6 +122,12 @@ public class Ejemplo_Ficheros{
 			System.out.println ("Ha ocurrido un error de conversión de cadenas a numeros");
 			System.out.println (nb_exception.toString());
 		}
+		catch (ExcepcionDouble ed_exception){
+			// Excepción que ocurre si el número
+			// recibido es negativo
+			System.out.println ("El número rel era negativo");
+			System.out.println (ed_exception.toString());
+		}
 		catch (NoSuchElementException nse_exception){
 			// Excepción que ocurre cuando el método
 			// "nextLine(): String" no encuentra una cadena
@@ -134,5 +145,26 @@ public class Ejemplo_Ficheros{
 			// todas las operaciones "de limpieza", como "flush()" ó "close()"
 			// se realizaron dentro del "try"
 		}
+	}
+	public static double comprobarPositivo (double d) throws ExcepcionDouble {
+		if (d >= 0){
+			return d;
+		}
+		else {
+			throw new ExcepcionDouble ("El número recibido es negativo" , d);
+		}
+	}
+}
+
+class ExcepcionDouble extends Exception {
+	private double dato;
+	public ExcepcionDouble (String s, double d){
+		super (s);
+		this.dato = d;
+	}
+	public String toString() {
+		String aux = super.toString();
+		aux = aux + "\n" + "El número que ha causado la excepción es " + this.dato + "\n";
+		return aux;
 	}
 }
